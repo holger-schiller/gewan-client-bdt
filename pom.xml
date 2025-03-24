@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>de.ldbv.gewan.client.bdt</groupId>
+    <artifactId>cucumber-tutorial</artifactId>
+    <version>1.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
+
+    <properties>
+        <assertj.version>3.27.3</assertj.version>
+        <cluecumber-report-plugin.version>2.9.4</cluecumber-report-plugin.version>
+        <cucumber.version>7.21.1</cucumber.version>
+        <cukedoctor-maven-plugin.version>3.9.0</cukedoctor-maven-plugin.version>
+        <junit.version>5.12.1</junit.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.junit</groupId>
+                <artifactId>junit-bom</artifactId>
+                <version>${junit.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.assertj</groupId>
+                <artifactId>assertj-bom</artifactId>
+                <version>${assertj.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <dependencies>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit-platform-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.junit.platform</groupId>
+            <artifactId>junit-platform-suite</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-core</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.trivago.rta/cluecumber-report-plugin -->
+        <dependency>
+            <groupId>com.trivago.rta</groupId>
+            <artifactId>cluecumber-report-plugin</artifactId>
+            <version>${cluecumber-report-plugin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.github.cukedoctor/cukedoctor-maven-plugin -->
+        <dependency>
+            <groupId>com.github.cukedoctor</groupId>
+            <artifactId>cukedoctor-maven-plugin</artifactId>
+            <version>${cukedoctor-maven-plugin.version}</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.microfocus.adm.almoctane.bdd/octane-cucumber-jvm -->
+        <dependency>
+            <groupId>com.microfocus.adm.almoctane.bdd</groupId>
+            <artifactId>octane-cucumber-jvm</artifactId>
+            <version>1.0.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/com.microfocus.adm.almoctane.bdd/bdd2octane -->
+        <dependency>
+            <groupId>com.microfocus.adm.almoctane.bdd</groupId>
+            <artifactId>bdd2octane</artifactId>
+            <version>1.1.10</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.14.0</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.5.2</version>
+                <configuration>
+                    <testFailureIgnore>true</testFailureIgnore>
+                    <properties>
+                        <!-- Work around. Surefire does not include enough
+                             information to disambiguate between different
+                             examples and scenarios. -->
+                        <configurationParameters>
+                            cucumber.junit-platform.naming-strategy=long
+                        </configurationParameters>
+                    </properties>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.trivago.rta</groupId>
+                <artifactId>cluecumber-report-plugin</artifactId>
+                <version>${cluecumber-report-plugin.version}</version>
+                <executions>
+                    <execution>
+                        <id>report</id>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>reporting</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <!-- This configuration block applies to all executions including command
+                        line invocation -->
+                    <sourceJsonReportDirectory>${project.build.directory}/cucumber-report</sourceJsonReportDirectory>
+                    <generatedHtmlReportDirectory>${project.build.directory}/generated-report
+                    </generatedHtmlReportDirectory>
+                    <customParameters>
+                        <_Text>Overview Report includes only all selected cucumber options
+                            such as feature/scenario tags
+                        </_Text>
+                        <Custom_URL>https://www.ldbv.de</Custom_URL>
+                    </customParameters>
+                    <expandBeforeAfterHooks>true</expandBeforeAfterHooks>
+                    <expandStepHooks>true</expandStepHooks>
+                    <expandDocStrings>true</expandDocStrings>
+                </configuration>
+            </plugin>
+
+            <!-- see https://github.com/rmpestano/cukedoctor -->
+            <plugin>
+                <groupId>com.github.cukedoctor</groupId>
+                <artifactId>cukedoctor-maven-plugin</artifactId>
+                <version>${cukedoctor-maven-plugin.version}</version>
+                <configuration>
+                    <!-- filename default documentation -->
+                    <!-- <outputFileName>documentation</outputFileName> -->
+                    <!-- folder name relative to /target, default is cukedoctor -->
+                    <!-- <outputDir>docs</outputDir> -->
+                    <!-- output format, default html5 -->
+                    <!-- <format>pdf</format> -->
+                    <!-- default is right -->
+                    <toc>left</toc>
+                    <!-- section numbering, default is false -->
+                    <numbered>true</numbered>
+                    <docVersion>${project.version}</docVersion>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>post-integration-test</phase>
+                        <goals>
+                            <goal>execute</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.microfocus.adm.almoctane.bdd</groupId>
+                <artifactId>bdd2octane</artifactId>
+                <version>1.1.10</version>
+                <configuration>
+                    <featureFilesPath>target/test-classes/features/client/*.feature</featureFilesPath>
+                    <framework>cucumber-jvm</framework>
+                    <reportFilesPath>target/surefire-reports/*.xml</reportFilesPath>
+                    <!-- default
+                    <resultFilePath>cucumber-jvm-result.xml</resultFilePath>
+                    -->
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+</project>

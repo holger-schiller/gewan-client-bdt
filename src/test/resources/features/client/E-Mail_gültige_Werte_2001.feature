@@ -5,7 +5,7 @@ Feature: Betriebsummeldung
   Background: 
     Given Benutzer ist angemeldet
 
-  Scenario Outline: E-Mail - Gueltige Werte
+  Scenario Outline: E-Mail - Gültige Werte
     Given lesen_Heute
     And do_BaseStateMitAnmeldung "<Organisation>" "<Benutzer>"
     And Initiierung Ummeldung Betrieb
@@ -24,4 +24,4 @@ Feature: Betriebsummeldung
 
     Examples: 
       | Organisation | Benutzer | Betriebsname              | Ummeldegrund                 | eMailAdresse |
-      |    091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | undefined    |
+      |    091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | <undefined>    |

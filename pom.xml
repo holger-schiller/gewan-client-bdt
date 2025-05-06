@@ -119,7 +119,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
+                <version>3.5.2</version>
                 <configuration>
                     <testFailureIgnore>true</testFailureIgnore>
                     <properties>
@@ -199,7 +199,7 @@
                 <configuration>
                     <featureFilesPath>target/test-classes/features/client/*.feature</featureFilesPath>
                     <framework>cucumber-jvm</framework>
-                    <reportFilesPath>target/surefire-reports/*.xml</reportFilesPath>
+                    <reportFilesPath>target/surefire-reports/TEST-*.xml</reportFilesPath>
                     <!-- default
                     <resultFilePath>cucumber-jvm-result.xml</resultFilePath>
                     -->

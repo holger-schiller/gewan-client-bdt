@@ -1,6 +1,5 @@
 package de.ldbv.gewan.client.bdt.cucumber.tutorial;
 
-import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 
 public class StepDefinitionsClientGiven {
@@ -45,12 +44,11 @@ public class StepDefinitionsClientGiven {
         //throw new io.cucumber.java.PendingException();
         System.out.println("Klicke Checkbox");
     }
+
     @Given("klicke_Button {string} {string} {string} {string}")
     public void klicke_button(String string, String string2, String string3, String string4) {
         // Write code here that turns the phrase above into concrete actions
         //throw new io.cucumber.java.PendingException();
         System.out.println("Klicke Button");
     }
-
-
 }

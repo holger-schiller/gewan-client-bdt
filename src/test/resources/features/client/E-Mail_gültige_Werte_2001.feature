@@ -24,4 +24,5 @@ Feature: Betriebsummeldung
 
     Examples: 
       | Organisation | Benutzer | Betriebsname              | Ummeldegrund                 | eMailAdresse |
-      |    091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | <undefined>    |
+      |    091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | <undefined>  |
+

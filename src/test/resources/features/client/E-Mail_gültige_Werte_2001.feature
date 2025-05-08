@@ -7,7 +7,7 @@ Feature: Betriebsummeldung
 
   Scenario Outline: E-Mail - Gueltige Werte
     Given lesen_Heute
-    Given do_BaseStateMitAnmeldung "<Organisation>" "<Benutzer>"
+    Given do_BaseStateMitAnmeldung "<Kennwort>" "<Organisation>" "<Benutzer>"
     Given Initiierung Ummeldung Betrieb
     Given Suche Betrieb - Felder füllen und suchen "" "" "<Betriebsname>" "" "" "" ""
     Given fuelle_Textfeld "Wirksamkeitsdatum" "" "Datumsangaben" "" ""
@@ -23,5 +23,5 @@ Feature: Betriebsummeldung
     Then navigiere_zurueckBisHauptmaske
 
     Examples: 
-      | Organisation | Benutzer | Betriebsname              | Ummeldegrund                 | Strasse | eMailAdresse |
-      |    091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | Kuhweg  | <undefined>  |
+      | Kennwort | Organisation | Benutzer | Betriebsname              | Ummeldegrund                 | Strasse | eMailAdresse |
+      | bubu     |   091835183 | GSachBe  | Betrieb für Test-ID 34743 | Verlegung innerhalb Gemeinde | Kuhweg  | <undefined>  |
